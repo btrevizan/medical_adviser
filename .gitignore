@@ -1,3 +1,6 @@
+# Migration should be local
+website/migrations/*
+
 # MacOS hidden files
 .DS_Store
 
