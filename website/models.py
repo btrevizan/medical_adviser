@@ -8,7 +8,7 @@ class Address(models.Model):
     neighborhood = models.CharField(max_length=40)
     street = models.CharField(max_length=100)
     number = models.CharField(max_length=6)
-    complement = models.CharField(max_length=15)
+    complement = models.CharField(max_length=15, null=True)
 
 
 class Admin(models.Model):
