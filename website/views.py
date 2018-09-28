@@ -40,7 +40,7 @@ class AppointmentCreateSuccessView(generic.TemplateView):
 #  deverá ser passado no parâmetro a string "NULL".
 def SearchDoctor(request, speciality):
     all_doctors = Doctor.objects.all()
-    result = all_doctors
+    result = list(all_doctors)
 
     if speciality != "NULL":
         for d in all_doctors:
