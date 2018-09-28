@@ -1,10 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.template import loader
 from django.views import generic
 from .models import *
 from .forms import *
+
 
 
 class IndexView(generic.TemplateView):
@@ -30,3 +33,25 @@ class AppointmentCreateView(generic.CreateView):
 
 class AppointmentCreateSuccessView(generic.TemplateView):
     template_name = 'website/create_appointment_success.html'
+
+
+# ------------------------------------------------------------------------------------------------------------
+# No caso de o usuário não preencher algum dos campos (speciality),
+#  deverá ser passado no parâmetro a string "NULL".
+def SearchDoctor(request, speciality):
+    all_doctors = Doctor.objects.all()
+    result = all_doctors
+
+    if speciality != "NULL":
+        for d in all_doctors:
+            if d.speciality != speciality:
+                result.remove(d)
+
+    template = loader.get_template('website/templateTestePesquisarMedico.html')   # Template teste.
+    context = { 
+        'doctors_list': result,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+# ------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,10 @@
+{% if doctors_list %}
+    <table>
+    {% for d in doctors_list %}
+    <!-- Exibe informações sobre os médicos:  -->
+        <tr><td>{{ d.crm }}</td><td>{{ d.sdeciality }}</td><td>{{ d.avg_rating }}</td></tr>
+    {% endfor %}
+    </table>
+{% else %}
+    <p>Nenhum médico encontrado.</p>
+{% endif %}
