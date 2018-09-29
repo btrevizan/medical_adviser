@@ -25,7 +25,7 @@ SECRET_KEY = 'vn2+6b531h+p(nfv5!j4w=td@g*fie=qe8hr87mafl$4+8lf^('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'website.apps.WebsiteConfig',
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'medical_advisor.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'website/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -81,7 +82,8 @@ DATABASES = {
         'NAME': 'medical_advisor',
         'USER': 'root',
         'PASSWORD': 'peanutButter123!@#',
-        'HOST': 'localhost'
+        'HOST': '127.0.0.1',                 
+        'PORT': '3306',    
     }
 }
 
@@ -122,8 +124,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, STATIC_URL)
+STATIC_PATH = os.path.join(BASE_DIR,'static/')
+
+STATIC_URL = '/static/' # You may find this is already defined as such.
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)

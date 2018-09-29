@@ -8,14 +8,14 @@ from .forms import *
 
 
 class IndexView(generic.TemplateView):
-    template_name = 'website/index.html'
+    template_name = 'medical_advisor/index.html' 
 
 
 class AppointmentCreateView(generic.CreateView):
     model = Appointment
-    template_name = 'website/create_appointment_error.html'
+    template_name = 'medical_advisor/create_appointment.html'
 
-    @method_decorator(login_required)
+    #@method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         form = AppointmentForm(request.POST)
 
