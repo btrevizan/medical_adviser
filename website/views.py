@@ -1,24 +1,24 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import loader
 from django.views import generic
 from .models import *
 from .forms import *
 
 
-
 class IndexView(generic.TemplateView):
-    template_name = 'medical_advisor/index.html' 
+    template_name = 'website/index.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {'search_form': SearchDoctorForm()})
 
 
 class AppointmentCreateView(generic.CreateView):
     model = Appointment
-    template_name = 'medical_advisor/create_appointment.html'
+    template_name = 'website/create_appointment_error.html'
 
-    #@method_decorator(login_required)
+    # @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         form = AppointmentForm(request.POST)
 
@@ -35,23 +35,24 @@ class AppointmentCreateSuccessView(generic.TemplateView):
     template_name = 'website/create_appointment_success.html'
 
 
-# ------------------------------------------------------------------------------------------------------------
-# No caso de o usuário não preencher algum dos campos (speciality),
-#  deverá ser passado no parâmetro a string "NULL".
-def SearchDoctor(request, speciality):
-    all_doctors = Doctor.objects.all()
-    result = list(all_doctors)
+class SearchDoctorView(generic.ListView):
+    model = Doctor
+    template_name = 'website/search_doctor_results.html'
+    context_object_name = 'doctors'
 
-    if speciality != "NULL":
-        for d in all_doctors:
-            if d.speciality != speciality:
-                result.remove(d)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = SearchDoctorForm(self.request.GET)
 
-    template = loader.get_template('website/templateTestePesquisarMedico.html')   # Template teste.
-    context = { 
-        'doctors_list': result,
-    }
-    return HttpResponse(template.render(context, request))
+        if form.is_valid():
+            obj_name = self.context_object_name
+            context[obj_name] = context[obj_name].filter(speciality__icontains=form.cleaned_data['speciality'],
+                                                         address__city__icontains=form.cleaned_data['city'],
+                                                         address__neighborhood__icontains=form.cleaned_data['neighborhood'])
 
+            context[obj_name] = [doctor for doctor in context[obj_name]
+                                 if doctor.has_free_schedule(form.cleaned_data['startdt'], form.cleaned_data['enddt'])]
 
-# ------------------------------------------------------------------------------------------------------------
+            return context
+        else:
+            HttpResponseRedirect('/')

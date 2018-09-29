@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 from django.contrib.auth.models import User
 
 
@@ -22,6 +23,12 @@ class Doctor(models.Model):
     crm_uf = models.CharField(max_length=2)
     speciality = models.CharField(max_length=25)
     avg_rating = models.FloatField()
+
+    def get_free_schedule(self, startdt, enddt):
+        pass
+
+    def has_free_schedule(self, startdt, enddt):
+        pass
 
 
 class Patient(models.Model):
@@ -71,13 +78,13 @@ class Appointment(models.Model):
 
 
 class DaySchedule(models.Model):
-    SUNDAY = 0
-    MONDAY = 1
-    TUESDAY = 2
-    WEDNESDAY = 3
-    THURSDAY = 4
-    FRIDAY = 5
-    SATURDAY = 6
+    SUNDAY = 6
+    MONDAY = 0
+    TUESDAY = 1
+    WEDNESDAY = 2
+    THURSDAY = 3
+    FRIDAY = 4
+    SATURDAY = 5
 
     DAY_CHOICES = (
         (SUNDAY, 'Domingo'),
