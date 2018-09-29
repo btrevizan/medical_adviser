@@ -25,10 +25,55 @@ class Doctor(models.Model):
     avg_rating = models.FloatField()
 
     def get_free_schedule(self, startdt, enddt):
-        pass
+        appointments = list(self.appointment_set.filter(datetime__range=(startdt, enddt)))
+        dayschedules = list(self.dayschedule_set)
+
+        # Gera todos datetimes entre startdt e enddt:
+        datetimes = [startdt]
+        curr_datetime = startdt
+        while curr_datetime < enddt:
+            curr_datetime += timedelta(minutes = 30)
+            datetimes.append(curr_datetime)
+
+        # Remove datetimes que ja estao associados a consultas:
+        for a in appointments:
+            if a.datetime in datetimes:
+                datetimes.remove(a.datetime)
+
+        # Remove datetimes em que o doutor nao atende:
+
+        # dias da semana:
+        dayschedules_weekdays = [d.day for d in dayschedules]
+        for d in datetimes:
+            if d.weekday() not in dayshedules_weekdays:
+                datetimes.remove(d)
+
+        # horarios:
+        for ds in dayschedules:
+            timeschedules = list(ds.timeschedule_set)  # timeschedules do dayschedule.
+            dt = [d for d in datetimes if d.weekday() == ds.day]  # datetimes com dia da semana igual ao dayschedule.
+
+            for d in dt:
+                remover = True
+                for ts in timeschedules:
+                    # se existe um timeschedule onde d se encaixa:
+                    if d.hour > ts.start_time.hour and  d.hour < ts.end_time.hour:
+                        remover = False
+                    if d.hour == ts.start_time.hour:
+                        if d.minute >= ts.start_time.minute:
+                            remover = False
+                    if d.hour == ts.end_time.hour:
+                        if d.minute <= ts.end_time.minute:
+                            remover = False
+                    if not remover
+                        break
+                if remover:
+                    datetimes.remove(d)
+        return datetimes   
+        
 
     def has_free_schedule(self, startdt, enddt):
-        pass
+        return len(get_free_schedule)
 
 
 class Patient(models.Model):
