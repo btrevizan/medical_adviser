@@ -65,7 +65,7 @@ class Doctor(models.Model):
                     if d.hour == ts.end_time.hour:
                         if d.minute <= ts.end_time.minute:
                             remover = False
-                    if not remover
+                    if not remover:
                         break
                 if remover:
                     datetimes.remove(d)
