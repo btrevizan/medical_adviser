@@ -54,7 +54,7 @@ class SearchDoctorView(generic.ListView):
             context[obj_name] = context[obj_name].order_by('user__username')
             context[obj_name] = [doctor for doctor in context[obj_name]
                                  if doctor.has_free_schedule(form.cleaned_data['startdt'], form.cleaned_data['enddt'])]
-
+            
             return context
         else:
             HttpResponseRedirect('/')
@@ -72,5 +72,5 @@ class DoctorProfileView(generic.DetailView):
         startdt = datetime.datetime.today()
         enddt = datetime.datetime(startdt.year, startdt.month + 2, startdt.day, startdt.hour, startdt.minute, 0, 0)
         context['free_schedule'] = context['object'].get_free_schedule(startdt, enddt)
-
+        
         return context
