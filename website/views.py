@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseRedirect
+from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.views import generic
 from .models import *
@@ -50,6 +51,7 @@ class SearchDoctorView(generic.ListView):
                                                          address__city__icontains=form.cleaned_data['city'],
                                                          address__neighborhood__icontains=form.cleaned_data['neighborhood'])
 
+            context[obj_name] = context[obj_name].order_by('user__username')
             context[obj_name] = [doctor for doctor in context[obj_name]
                                  if doctor.has_free_schedule(form.cleaned_data['startdt'], form.cleaned_data['enddt'])]
 
@@ -64,4 +66,11 @@ class DoctorProfileView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        context['ratings'] = context['object'].appointment_set.filter(rating__isnull=False).order_by('datetime')[:10]
+
+        startdt = datetime.datetime.today()
+        enddt = datetime.datetime(startdt.year, startdt.month + 2, startdt.day, startdt.hour, startdt.minute, 0, 0)
+        context['free_schedule'] = context['object'].get_free_schedule(startdt, enddt)
+
         return context

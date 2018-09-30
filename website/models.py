@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 
 
@@ -10,6 +10,17 @@ class Address(models.Model):
     street = models.CharField(max_length=100)
     number = models.CharField(max_length=6)
     complement = models.CharField(max_length=15, null=True)
+
+    def __str__(self):
+        if self.complement is not None:
+            return "{} {}, {}, {} - {}/{}".format(self.street,
+                                                  self.number,
+                                                  self.complement,
+                                                  self.neighborhood,
+                                                  self.city,
+                                                  self.uf)
+
+        return "{} {}, {} - {}/{}".format(self.street, self.number, self.neighborhood, self.city, self.uf)
 
 
 class Admin(models.Model):
@@ -25,14 +36,20 @@ class Doctor(models.Model):
     avg_rating = models.FloatField()
 
     def get_free_schedule(self, startdt, enddt):
-        appointments = list(self.appointment_set.filter(datetime__range=(startdt, enddt)))
-        dayschedules = list(self.dayschedule_set)
+        appointments = self.appointment_set.filter(datetime__range=(startdt, enddt))
+        dayschedules = self.dayschedule_set.all()
+
+        startdt_min = startdt.minute if startdt.minute in [0, 30] else startdt.minute + (30 - startdt.minute)
+        enddt_min = enddt.minute if enddt.minute in [0, 30] else enddt.minute + (30 - enddt.minute)
+
+        startdt = datetime(startdt.year, startdt.month, startdt.day, startdt.hour, startdt_min, 0, 0)
+        enddt = datetime(enddt.year, enddt.month, enddt.day, enddt.hour, enddt_min, 0, 0)
 
         # Gera todos datetimes entre startdt e enddt:
         datetimes = [startdt]
         curr_datetime = startdt
         while curr_datetime < enddt:
-            curr_datetime += timedelta(minutes = 30)
+            curr_datetime += timedelta(minutes=30)
             datetimes.append(curr_datetime)
 
         # Remove datetimes que ja estao associados a consultas:
@@ -41,39 +58,30 @@ class Doctor(models.Model):
                 datetimes.remove(a.datetime)
 
         # Remove datetimes em que o doutor nao atende:
-
         # dias da semana:
         dayschedules_weekdays = [d.day for d in dayschedules]
-        for d in datetimes:
-            if d.weekday() not in dayshedules_weekdays:
-                datetimes.remove(d)
+        datetimes = [d for d in datetimes if d.weekday() in dayschedules_weekdays]
 
         # horarios:
         for ds in dayschedules:
-            timeschedules = list(ds.timeschedule_set)  # timeschedules do dayschedule.
+            timeschedules = ds.timeschedule_set.all()  # timeschedules do dayschedule.
             dt = [d for d in datetimes if d.weekday() == ds.day]  # datetimes com dia da semana igual ao dayschedule.
 
             for d in dt:
-                remover = True
+                it_fits = []
+
                 for ts in timeschedules:
                     # se existe um timeschedule onde d se encaixa:
-                    if d.hour > ts.start_time.hour and  d.hour < ts.end_time.hour:
-                        remover = False
-                    if d.hour == ts.start_time.hour:
-                        if d.minute >= ts.start_time.minute:
-                            remover = False
-                    if d.hour == ts.end_time.hour:
-                        if d.minute <= ts.end_time.minute:
-                            remover = False
-                    if not remover:
-                        break
-                if remover:
+                    it_fits.append(ts.start_time <= d.time() <= ts.end_time)
+
+                if not any(it_fits):
+                    # Nao encaixou com nenhum intervalo
                     datetimes.remove(d)
-        return datetimes   
-        
+
+        return datetimes
 
     def has_free_schedule(self, startdt, enddt):
-        return len(get_free_schedule)
+        return len(self.get_free_schedule(startdt, enddt))
 
 
 class Patient(models.Model):
