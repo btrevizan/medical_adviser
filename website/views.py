@@ -24,12 +24,15 @@ class AppointmentCreateView(generic.CreateView):
         form = AppointmentForm(request.POST)
 
         if form.is_valid():
-            appointment = Appointment(doctor=form.doctor, patient=form.patient, datetime=form.datetime)
+            user = request.user
+            appointment = Appointment(doctor_id=form.cleaned_data['doctor'],
+                                      patient_id=user.id,
+                                      datetime=form.cleaned_data['datetime'])
             appointment.save()
 
-            HttpResponseRedirect('appointment/create/success')
+            return HttpResponseRedirect('success')
         else:
-            render(request, self.template_name, {'form': form})
+            return render(request, self.template_name, {'form': form})
 
 
 class AppointmentCreateSuccessView(generic.TemplateView):
@@ -67,7 +70,8 @@ class DoctorProfileView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['ratings'] = context['object'].appointment_set.filter(rating__isnull=False).order_by('datetime')[:10]
+        context['ratings'] = context['object'].appointment_set.filter(rating__isnull=False,
+                                                                      rating__status=Rating.APPROVED).order_by('datetime')[:10]
 
         startdt = datetime.datetime.today()
         enddt = datetime.datetime(startdt.year, startdt.month + 2, startdt.day, startdt.hour, startdt.minute, 0, 0)

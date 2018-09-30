@@ -2,75 +2,75 @@
 {% load extras %}
 
 {% block content %}
-    <div class="col-12 col-md-12">
-		<form action="{% url 'create_appointment' %}" method="get">
-			<div class="form-group row">
-				<label for="staticName" class="col-sm-2 col-form-label">Nome:</label>
-				<div class="col-sm-10">
-					<input type="text" readonly class="form-control-plaintext" id="staticName" value="{{ doctor.user.first_name }} {{ doctor.user.last_name }}">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="staticCRM" class="col-sm-2 col-form-label">CRM:</label>
-				<div class="col-sm-10">
-					<input type="text" readonly class="form-control-plaintext" id="staticCRM" value="{{ doctor.crm }}/{{ doctor.crm_uf }}">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="staticSpeciality" class="col-sm-2 col-form-label">Especialidade:</label>
-				<div class="col-sm-10">
-					<input type="text" readonly class="form-control-plaintext" id="staticSpeciality" value="{{ doctor.speciality }}">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="staticAdress" class="col-sm-2 col-form-label">Endereço do Consultório:</label>
-				<div class="col-sm-10">
-					<input type="text" readonly class="form-control-plaintext" id="staticAdress" value="{{ doctor.address }}">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label for="scheduler" class="col-sm-2 col-form-label">Horários Disponíveis:</label>
-				<div class="col-sm-10">
-					<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" style="width: auto;">
-				    	<option selected>Escolha um horário...</option>
-				    	{% for date in free_schedule %}
-				    	<!-- The value is the index in the free_schedule array -->
-				    	<option value="{{ forloop.counter0 }}">{{ date }}</option>
-				    	{% endfor %}
-				  	</select>
-				</div>
-			</div>
-			<div class="form-group row" style="display: flex; align-items: center;">
-				<label class="col-sm-2 col-form-label">Média de avaliações:</label>
-				<div class="col-sm-10">
-					{% for i in doctor.avg_rating|to_range %}
-			            <i class="icon-star text-warning"></i>
-			        {% endfor %}
-				</div>
-			</div>
-			<hr>
-			<div>
-				<p style="font-weight: bold;">Avaliações dos usuários</p>
-				{% for appointment in ratings %}
-					<div style="display: flex;">
-						<div class="form-group row" style="width: 100%;">
-							<label for="userRating{{ forloop.counter0 }}" class="col-sm-2 col-form-label">Avaliação:</label>
-							<div class="col-sm-10">
-								<input type="text" readonly class="form-control-plaintext" id="userRating{{ forloop.counter0 }}" value="{{ appointment.rating.description }}">
-							</div>
-						</div>
-						<div class="form-group row" style="width: 100%;">
-							<label for="userNote{{ forloop.counter0 }}" class="col-sm-2 col-form-label">Nota:</label>
-							<div class="col-sm-10">
-								<input type="text" readonly class="form-control-plaintext" id="userNote{{ forloop.counter0 }}" value="{{ appointment.rating.stars }}">
-							</div>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-			<hr>
-			<button type="submit" class="btn btn-primary my-1">Marcar consulta</button>
-		</form>
-		<button class="btn btn-secondary my-1" onclick="window.history.back();">Voltar</button>
+    <div class="col-12 col-md-12 center" style="margin-top: 20px">
+        <div class="form-group row">
+            <div class="col-2 text-muted text-right">Nome</div>
+            <div class="col-8">{{ doctor.user.first_name }} {{ doctor.user.last_name }}</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2 text-right text-muted">CRM</div>
+            <div class="col-8">{{ doctor.crm }}/{{ doctor.crm_uf }}</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2 text-right text-muted">Especialidade</div>
+            <div class="col-8">{{ doctor.speciality }}</div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2 text-right text-muted">Endereço</div>
+            <div class="col-8">{{ doctor.address }}</div>
+        </div>
+        <div class="form-group row">
+            <label class="col-2 text-right text-muted">Avaliações</label>
+            <div class="col-8">
+                {% for i in doctor.avg_rating|to_range %}
+                    <i class="icon-star text-warning"></i>
+                {% endfor %}
+            </div>
+        </div>
+
+        <hr>
+
+        <form action="{% url 'create_appointment' %}" method="post" class="form-inline">
+            <input type="hidden" name="doctor" value="{{ doctor.id }}">
+            {% csrf_token %}
+            <label for="scheduler" class="col-2 text-right text-muted">Horários Disponíveis</label>
+            <div class="col-7">
+                <select class="custom-select" id="inlineFormCustomSelectPref" name="datetime">
+                    <option selected>Escolha um horário...</option>
+                    {% for date in free_schedule %}
+                    <!-- The value is the index in the free_schedule array -->
+                    <option value="{{ date|us_date }}">{{ date }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-3 text-left">
+                <button type="submit" class="btn btn-primary btn-block">Marcar consulta</button>
+            </div>
+        </form>
+
+    </div>
+    <div style="display: inline-block" class="col-12">
+        <hr>
+        <p style="font-weight: bold;">Avaliações</p>
+        <div class="col-12">
+            {% for appointment in ratings %}
+                <div class="alert alert-light col-6 fa-pull-left">
+                    <div class="alert-heading">
+                    {% for i in appointment.rating.stars|to_range %}
+                        <i class="icon-star text-warning"></i>
+                    {% endfor %}
+                    </div>
+                    <div class="small">
+                        {{ appointment.datetime }}
+                    </div>
+                    <div class="text-dark">
+                        {{ appointment.rating.description }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-12" style="margin-bottom: 10px">
+        <button class="btn btn-secondary my-1" onclick="window.history.back();">Voltar</button>
     </div>
 {% endblock %}

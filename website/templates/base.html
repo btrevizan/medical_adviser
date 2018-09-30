@@ -36,7 +36,11 @@
                 <a class="navbar-brand" href="{% url 'index' %}">
                     <img src="{% static "website/img/logo.png" %}">
                 </a>
-                <a class="btn btn-success" href="#">Entrar</a>
+                {% if user.is_authenticated %}
+                    Olá, {{ user.first_name }}
+                {% else %}
+                    <a class="btn btn-success" href="#">Entrar</a>
+                {% endif %}
             </div>
         </nav>
 
@@ -64,6 +68,10 @@
                             <li class="list-inline-item">&sdot;</li>
                             <li class="list-inline-item">
                                 <a href="#">Política de Privacidade</a>
+                            </li>
+                            <li class="list-inline-item">&sdot;</li>
+                            <li class="list-inline-item">
+                                <a href="admin/logout">Sair</a>
                             </li>
                         </ul>
                         <p class="text-muted small mb-4 mb-lg-0">&copy; MedicalAdvisor 2018. Todos os direitos reservados.</p>
