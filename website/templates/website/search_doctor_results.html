@@ -2,6 +2,7 @@
 {% load extras %}
 
 {% block content %}
+    {% if doctors|length %}
     <table class="table table-striped table-responsive-md">
         <tr class="">
             <td>Médico</td>
@@ -26,4 +27,12 @@
         </tr>
         {% endfor %}
     </table>
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info" style="margin-top: 20px">Nenhum médico foi encontrado nesse horário.</div>
+        </div>
+    {% endif %}
+    <div class="col-12" style="margin-bottom: 10px">
+        <button class="btn btn-secondary my-1" onclick="window.history.back();">Voltar</button>
+    </div>
 {% endblock %}

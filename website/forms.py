@@ -29,7 +29,7 @@ class SearchDoctorForm(forms.Form):
                                   widget=forms.TextInput(attrs=DEFAULT_ATTRS))
 
     DEFAULT_ATTRS.update({'placeholder': 'Até'})
-    enddt = forms.DateTimeField(initial=datetime.datetime.now().strftime(DATE_FORMAT),
+    enddt = forms.DateTimeField(initial=(datetime.datetime.now() + datetime.timedelta(hours=8)).strftime(DATE_FORMAT),
                                 input_formats=[DATE_FORMAT],
                                 widget=forms.TextInput(attrs=DEFAULT_ATTRS))
 
