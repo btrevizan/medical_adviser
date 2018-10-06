@@ -13,6 +13,10 @@ $ sudo pip3 install -r requirements.txt
 
 You should create a database called `medical_advisor`. Then run:
 ```bash
+$ python3 manage.py makemigrations
+```
+And then:
+```bash
 $ python3 manage.py migrate
 ```
 This will make Django create a set of tables on your database. Don't worry, he will manage it.
@@ -36,3 +40,36 @@ Quit the server with CONTROL-C.
 On your browser, enter: `http://127.0.0.1:8000/`
 
 Done!
+
+## To-Dos*
+Do Usuário:
+- [x] Realizar Login
+- [ ] Pesquisar Médico
+    - [ ] Visualizar perfil do médico
+- [x] Realizar Cadastro
+    - [x] Cadastro de Paciente
+    - [x] Cadastro de Médico
+
+Do Paciente:
+- [ ] Agendar consulta
+- [ ] Realizar avaliação
+- [ ] Listar avaliações próprias
+    - [ ] Visualizar avaliação 
+    - [ ] Editar avaliação
+
+Do Médico:
+- [ ] Listar avaliações
+    - [ ] Visualizar avaliações
+- [ ] Gerenciar Agenda
+
+Do Médico E Paciente:
+- [ ] Listar Consultas
+    - [ ] Visualizar consulta
+    - [ ] Cancelar consulta
+
+Do Administrador:
+- [ ] Cadastrar Administrador
+- [ ] Aprovar avaliação
+- [ ] Reprovar avaliação
+
+*Atualizar os To-Dos conforme desenvolvimento.
