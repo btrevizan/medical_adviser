@@ -42,7 +42,7 @@ On your browser, enter: `http://127.0.0.1:8000/`
 Done!
 
 ## To-Dos*
-Do Usuário (responsável - @btrevizan):
+Do Usuário (responsável - [@btrevizan](http://github.com/btrevizan)):
 - [x] Realizar Login
 - [ ] Pesquisar Médico
     - [ ] Visualizar perfil do médico
@@ -50,24 +50,24 @@ Do Usuário (responsável - @btrevizan):
     - [x] Cadastro de Paciente
     - [x] Cadastro de Médico
 
-Do Paciente (responsável - @btrevizan):
+Do Paciente (responsável - [@btrevizan](http://github.com/btrevizan):
 - [ ] Agendar consulta
 - [ ] Realizar avaliação
 - [ ] Listar avaliações próprias
     - [ ] Visualizar avaliação 
     - [ ] Editar avaliação
 
-Do Médico (responsável - @jpgmoreira):
+Do Médico (responsável - [@jpgmoreira](http://github.com/jpgmoreira)):
 - [ ] Listar avaliações
     - [ ] Visualizar avaliações
 - [ ] Gerenciar Agenda
 
-Do Médico E Paciente (responsável - @alvarosps):
+Do Médico E Paciente (responsável - [@alvarosps](http://github.com/alvarosps):
 - [ ] Listar Consultas
     - [ ] Visualizar consulta
     - [ ] Cancelar consulta
 
-Do Administrador (responsável - @Arturgh0):
+Do Administrador (responsável - [@Arturgh0](http://github.com/Arturgh0):
 - [ ] Cadastrar Administrador
 - [ ] Aprovar avaliação
 - [ ] Reprovar avaliação
