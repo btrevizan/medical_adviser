@@ -39,7 +39,7 @@
                 {% if user.is_authenticated %}
                     Olá, {{ user.first_name }}
                 {% else %}
-                    <a class="btn btn-success" href="#">Entrar</a>
+                    <a class="btn btn-success" href="{% url 'login' %}">Entrar</a>
                 {% endif %}
             </div>
         </nav>
@@ -71,7 +71,7 @@
                             </li>
                             <li class="list-inline-item">&sdot;</li>
                             <li class="list-inline-item">
-                                <a href="admin/logout">Sair</a>
+                                <a href="{% url 'logout' %}">Sair</a>
                             </li>
                         </ul>
                         <p class="text-muted small mb-4 mb-lg-0">&copy; MedicalAdvisor 2018. Todos os direitos reservados.</p>

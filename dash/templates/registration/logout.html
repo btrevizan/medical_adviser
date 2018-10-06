@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    {% include "dash/parts/head.html" %}
+
+	<body class="login-page">
+		<div class="login-box">
+			<div class="login-logo">
+				<img src="{% static "website/img/logo.png" %}">
+			</div>
+			<div class="login-box-body">
+				Você não está mais logado.<br>
+                Para realizar o login novamente, clique <a href="{% url 'login' %}">aqui</a>.<br>
+                Ou, vá para o <a href="{% url 'index' %}">site</a>.
+			</div>
+		</div>
+
+		{% include "dash/parts/js.html" %}
+	</body>
+</html>

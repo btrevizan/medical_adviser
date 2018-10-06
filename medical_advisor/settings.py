@@ -29,6 +29,9 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
+LOGIN_URL = '/dash/login'
+LOGIN_REDIRECT_URL = '/dash'
+LOGOUT_REDIRECT_URL = '/dash/logout/success'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'website.apps.WebsiteConfig',
+    'dash.apps.DashConfig',
     'bootstrapform',
 ]
 

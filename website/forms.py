@@ -1,6 +1,6 @@
 import datetime
 from django import forms
-from .models import Doctor, Patient
+from dash.models import Doctor
 
 
 class AppointmentForm(forms.Form):

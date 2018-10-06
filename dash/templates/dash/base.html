@@ -1,0 +1,25 @@
+{% load filters %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    {% include "dash/parts/head.html" %}
+
+    <body class="skin-red sidebar-mini sidebar-open">
+
+        <div class="wrapper">
+            {% include "dash/parts/header.html" %}
+            {% include "dash/parts/menu.html" %}
+
+            <div class="content-wrapper">
+                <section class="content-header"></section>
+                <section class="content">
+                    {% block content %} {% endblock content %}
+                </section>
+            </div>
+
+            {% include "dash/parts/footer.html" %}
+        </div>
+
+        {% include "dash/parts/js.html" %}
+    </body>
+</html>

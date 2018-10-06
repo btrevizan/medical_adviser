@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    {% include "dash/parts/head.html" %}
+
+	<body class="login-page">
+		<div class="login-box">
+			<div class="login-logo">
+				<img src="{% static "website/img/logo.png" %}">
+			</div>
+			<div class="login-box-body">
+				<form method="post" action="{% url 'sign_up' %}">
+					{% csrf_token %}
+                    <div class="row">
+
+                        {% for field in form %}
+                        <div class="form-group has-feedback">
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger">{{ field.errors }}</div>
+                            {% endif %}
+                            {% if field.help_text|length > 100 %}
+                                <div class="help-block small text-muted">
+                                    {{ field.help_text }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <button type="submit" value="login" class="btn btn-success btn-block btn-flat">Continuar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		{% include "dash/parts/js.html" %}
+	</body>
+</html>

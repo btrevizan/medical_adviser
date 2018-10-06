@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    {% include "dash/parts/head.html" %}
+
+	<body class="login-page">
+		<div class="login-box">
+			<div class="login-logo">
+				<img src="{% static "website/img/logo.png" %}">
+			</div>
+			<div class="login-box-body">
+				<form method="post" action="{% url 'login' %}">
+					{% csrf_token %}
+					<input type="hidden" name="next" value="{{ next }}">
+
+					<div class="form-group has-feedback">
+						<input type="text" name="username" class="form-control" placeholder="Usuário" autofocus required>
+					</div>
+					<div class="form-group has-feedback">
+						<input type="password" name="password" class="form-control" placeholder="Senha" required>
+					</div>
+					<div class="row">
+						{% if form.errors %}
+							<div class="col-xs-12">
+								<div class="alert alert-danger">Usuário ou senha incorretos.</div>
+							</div>
+						{% endif %}
+						<div class="col-xs-12">
+							<button type="submit" value="login" class="btn btn-success btn-block btn-flat">Entrar</button>
+						</div>
+                        <div class="col-xs-12 text-center">
+                            <small><a href="{% url 'sign_up' %}">Ainda não possui um cadastro? Cadastre-se.</a></small>
+                        </div>
+                        <div class="col-xs-12 text-center">
+                            <small><a href="{% url 'password_reset' %}">Esqueci minha senha</a></small>
+                        </div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		{% include "dash/parts/js.html" %}
+	</body>
+</html>
