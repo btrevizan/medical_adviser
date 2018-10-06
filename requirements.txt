@@ -1,4 +1,4 @@
 mysqlclient==1.3.13
-Django==2.1.1
+Django==2.1.2
 django-bootstrap-form==3.4
 pycpfcnpj==1.5
