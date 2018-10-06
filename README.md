@@ -50,7 +50,7 @@ Do Usuário (responsável - [@btrevizan](http://github.com/btrevizan)):
     - [x] Cadastro de Paciente
     - [x] Cadastro de Médico
 
-Do Paciente (responsável - [@btrevizan](http://github.com/btrevizan):
+Do Paciente (responsável - [@btrevizan](http://github.com/btrevizan)):
 - [ ] Agendar consulta
 - [ ] Realizar avaliação
 - [ ] Listar avaliações próprias
@@ -62,12 +62,12 @@ Do Médico (responsável - [@jpgmoreira](http://github.com/jpgmoreira)):
     - [ ] Visualizar avaliações
 - [ ] Gerenciar Agenda
 
-Do Médico E Paciente (responsável - [@alvarosps](http://github.com/alvarosps):
+Do Médico E Paciente (responsável - [@alvarosps](http://github.com/alvarosps)):
 - [ ] Listar Consultas
     - [ ] Visualizar consulta
     - [ ] Cancelar consulta
 
-Do Administrador (responsável - [@Arturgh0](http://github.com/Arturgh0):
+Do Administrador (responsável - [@Arturgh0](http://github.com/Arturgh0)):
 - [ ] Cadastrar Administrador
 - [ ] Aprovar avaliação
 - [ ] Reprovar avaliação
