@@ -42,7 +42,7 @@ On your browser, enter: `http://127.0.0.1:8000/`
 Done!
 
 ## To-Dos*
-Do Usuário:
+Do Usuário (responsável - @btrevizan):
 - [x] Realizar Login
 - [ ] Pesquisar Médico
     - [ ] Visualizar perfil do médico
@@ -50,24 +50,24 @@ Do Usuário:
     - [x] Cadastro de Paciente
     - [x] Cadastro de Médico
 
-Do Paciente:
+Do Paciente (responsável - @btrevizan):
 - [ ] Agendar consulta
 - [ ] Realizar avaliação
 - [ ] Listar avaliações próprias
     - [ ] Visualizar avaliação 
     - [ ] Editar avaliação
 
-Do Médico:
+Do Médico (responsável - @jpgmoreira):
 - [ ] Listar avaliações
     - [ ] Visualizar avaliações
 - [ ] Gerenciar Agenda
 
-Do Médico E Paciente:
+Do Médico E Paciente (responsável - @alvarosps):
 - [ ] Listar Consultas
     - [ ] Visualizar consulta
     - [ ] Cancelar consulta
 
-Do Administrador:
+Do Administrador (responsável - @Arturgh0):
 - [ ] Cadastrar Administrador
 - [ ] Aprovar avaliação
 - [ ] Reprovar avaliação
