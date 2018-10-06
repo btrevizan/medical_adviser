@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load extras %}
+
+{% block content %}
+    <div class="col-12" style="margin-top: 20px">
+        <div class="alert alert-danger">
+            Desculpe! Ocorreu um erro ao marcar sua consulta. Por favor, tente novamente.
+        </div>
+    </div>
+    <div class="col-12" style="margin-bottom: 10px">
+        <button class="btn btn-secondary my-1" onclick="window.history.back();">Voltar</button>
+    </div>
+{% endblock %}
