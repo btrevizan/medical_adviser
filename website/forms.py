@@ -1,11 +1,12 @@
 import datetime
 from django import forms
-from dash.models import Doctor
+from dash.models import Doctor, Appointment
 
 
 class AppointmentForm(forms.Form):
     doctor = forms.IntegerField()       # doctor_id
     datetime = forms.DateTimeField()
+    payment_method = forms.CharField(max_length=1)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -13,6 +14,10 @@ class AppointmentForm(forms.Form):
 
         if not Doctor.objects.filter(pk=doctor_id).exists():
             self.add_error('doctor', 'Médico não existe.')
+
+        if cleaned_data['payment_method'] != Appointment.CREDIT_CARD \
+                and cleaned_data['payment_method'] != Appointment.HEALTH_INSURANCE:
+            self.add_error('payment_method', 'Método de pagamento inválido.')
 
 
 class SearchDoctorForm(forms.Form):
