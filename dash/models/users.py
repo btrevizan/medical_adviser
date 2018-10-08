@@ -32,6 +32,7 @@ class Doctor(models.Model):
     address = models.OneToOneField(Address, on_delete=models.PROTECT)
     crm = models.CharField(max_length=6)
     crm_uf = models.CharField(max_length=2)
+    description = models.TextField(null=True)
     speciality = models.CharField(max_length=25)
     avg_rating = models.FloatField(default=0)
 
