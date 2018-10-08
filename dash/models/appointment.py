@@ -55,5 +55,5 @@ class Appointment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     rating = models.OneToOneField(Rating, on_delete=models.CASCADE, null=True)
     payment_method = models.CharField(max_length=1, choices=PAYMENT_METHODS)
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='W')
     datetime = models.DateTimeField()
