@@ -57,3 +57,13 @@ class Appointment(models.Model):
     payment_method = models.CharField(max_length=1, choices=PAYMENT_METHODS)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='W')
     datetime = models.DateTimeField()
+
+    def is_payment_method_valid(self):
+        # TODO: integrate with credit card/health insurance systems to check
+        return self.payment_method in list(zip(*self.PAYMENT_METHODS)[0])
+
+    def confirm(self, commit=True):
+        self.status = self.CONFIRMED
+
+        if commit:
+            self.save()
