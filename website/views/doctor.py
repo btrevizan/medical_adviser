@@ -1,5 +1,5 @@
 from django.views import generic
-from dash.models import Doctor
+from dash.models import Rating
 from website.forms import *
 
 
