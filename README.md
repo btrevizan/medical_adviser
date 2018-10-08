@@ -44,14 +44,14 @@ Done!
 ## To-Dos*
 Do Usuário (responsável - [@btrevizan](http://github.com/btrevizan)):
 - [x] Realizar Login
-- [ ] Pesquisar Médico
-    - [ ] Visualizar perfil do médico
+- [x] Pesquisar Médico
+    - [x] Visualizar perfil do médico
 - [x] Realizar Cadastro
     - [x] Cadastro de Paciente
     - [x] Cadastro de Médico
 
 Do Paciente (responsável - [@btrevizan](http://github.com/btrevizan)):
-- [ ] Agendar consulta
+- [x] Agendar consulta
 - [ ] Realizar avaliação
 - [ ] Listar avaliações próprias
     - [ ] Visualizar avaliação 

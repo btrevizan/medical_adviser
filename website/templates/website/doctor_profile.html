@@ -27,10 +27,12 @@
                 {% endfor %}
             </div>
         </div>
+        {% if doctor.description|length %}
         <div class="form-group row">
             <label class="col-2 text-right text-muted">Biografia</label>
             <div class="col-8">{{ doctor.description }}</div>
         </div>
+        {% endif %}
 
         <hr>
 
@@ -38,8 +40,8 @@
             <input type="hidden" name="doctor" value="{{ doctor.id }}">
             {% csrf_token %}
             <label for="scheduler" class="col-2 text-right text-muted">Horários Disponíveis</label>
-            <div class="col-7">
-                <select class="custom-select" id="inlineFormCustomSelectPref" name="datetime">
+            <div class="col-4">
+                <select class="custom-select" name="datetime" required>
                     <option selected>Escolha um horário...</option>
                     {% for date in free_schedule %}
                     <!-- The value is the index in the free_schedule array -->
@@ -47,7 +49,14 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class="col-3 text-left">
+            <div class="col-4">
+                <select class="custom-select" name="payment_method" required>
+                    <option selected>Escolha um método de pagamento...</option>
+                    <option value="C">Cartão de Crédito</option>
+                    <option value="H">Plano de Saúde</option>
+                </select>
+            </div>
+            <div class="col-2 text-left">
                 <button type="submit" class="btn btn-primary btn-block">Marcar consulta</button>
             </div>
         </form>

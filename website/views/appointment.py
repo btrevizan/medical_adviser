@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseRedirect
-from dash.models import Appointment
+from dash.models import Appointment, Patient
 from django.shortcuts import render
 from django.views import generic
 from website.forms import *
@@ -17,14 +17,18 @@ class AppointmentCreateView(generic.CreateView):
 
         if form.is_valid():
             user = request.user
-            appointment = Appointment(doctor_id=form.cleaned_data['doctor'],
-                                      patient_id=user.id,
-                                      datetime=form.cleaned_data['datetime'])
-            appointment.save()
+            patient = Patient.objects.get(user=user)
 
-            return HttpResponseRedirect('success')
-        else:
-            return render(request, self.template_name, {'form': form})
+            if patient:
+                appointment = Appointment(doctor_id=form.cleaned_data['doctor'],
+                                          patient_id=patient.id,
+                                          datetime=form.cleaned_data['datetime'],
+                                          payment_method=form.cleaned_data['payment_method'])
+
+                appointment.save()
+                return HttpResponseRedirect('success')
+
+        return render(request, self.template_name, {'form': form})
 
 
 class AppointmentCreateSuccessView(generic.TemplateView):
