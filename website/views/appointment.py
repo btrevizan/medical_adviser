@@ -23,7 +23,8 @@ class AppointmentCreateView(generic.CreateView):
                 appointment = Appointment(doctor_id=form.cleaned_data['doctor'],
                                           patient_id=patient.id,
                                           datetime=form.cleaned_data['datetime'],
-                                          payment_method=form.cleaned_data['payment_method'])
+                                          payment_method=form.cleaned_data['payment_method'],
+                                          status=Appointment.CONFIRMED)
 
                 appointment.save()
                 return HttpResponseRedirect('success')
