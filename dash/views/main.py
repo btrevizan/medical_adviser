@@ -4,4 +4,4 @@ from django.views.generic import RedirectView
 
 class DashRedirectView(LoginRequiredMixin, RedirectView):
     query_string = True
-    pattern_name = 'rating-list'
+    pattern_name = 'appointment-list'
