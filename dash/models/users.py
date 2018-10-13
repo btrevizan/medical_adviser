@@ -119,7 +119,7 @@ class Doctor(models.Model):
         ratings = [a.rating.stars for a in self.appointment_set.filter(rating__isnull=False)]
         avg_rating = np.mean(ratings)
 
-        self.avg_rating = avg_rating
+        self.avg_rating = round(avg_rating, 1)
 
         if commit:
             self.save()
