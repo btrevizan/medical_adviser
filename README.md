@@ -70,7 +70,7 @@ Do Médico (e Paciente) (responsável - [@alvarosps](http://github.com/alvarosps
 Do Paciente (e Médico) (responsável - [@btrevizan](http://github.com/btrevizan)):
 - [x] Listar Consultas
     - [x] Visualizar consulta
-    - [ ] Cancelar consulta
+    - [x] Cancelar consulta
 
 Do Administrador (responsável - [@Arturgh0](http://github.com/Arturgh0)):
 - [ ] Cadastrar Administrador

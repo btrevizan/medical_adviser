@@ -37,6 +37,7 @@
                             <td class="col-md-2 text-right"><strong>Data/Hora</strong></td>
                             <td>{{ appointment.datetime }}</td>
                         </tr>
+                        {% if appointment.datetime|is_closed %}
                         <tr>
                             <td class="col-md-2 text-right"><strong>Sua Avaliação</strong></td>
                             {% if appointment.rating %}
@@ -53,6 +54,7 @@
                                 </td>
                             {% endif %}
                         </tr>
+                        {% endif %}
                     </tbody>
                 </table>
                 {% if not appointment.datetime|is_closed %}
