@@ -1,13 +1,16 @@
-from django.views.generic.edit import UpdateView, CreateView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic.edit import UpdateView, DeleteView
 from django.shortcuts import render, get_object_or_404
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
+from dash.decorators import patient_required
 from django.http import HttpResponseRedirect
 from dash.models import Rating, Appointment
 from django.urls import reverse_lazy
 from dash.forms import RatingForm
 
 
+@method_decorator(patient_required, name='dispatch')
 class RatingListView(PermissionRequiredMixin, TemplateView):
     model = Rating
     context_object_name = 'ratings'
@@ -22,6 +25,7 @@ class RatingListView(PermissionRequiredMixin, TemplateView):
         return context
 
 
+@method_decorator(patient_required, name='dispatch')
 class RatingCreateView(PermissionRequiredMixin, TemplateView):
     model = Rating
     form_class = RatingForm
@@ -54,6 +58,7 @@ class RatingCreateView(PermissionRequiredMixin, TemplateView):
         return render(request, self.template_name, {'form': form})
 
 
+@method_decorator(patient_required, name='dispatch')
 class RatingUpdateView(PermissionRequiredMixin, UpdateView):
     model = Rating
     form_class = RatingForm
@@ -89,6 +94,7 @@ class RatingUpdateView(PermissionRequiredMixin, UpdateView):
         return render(request, self.template_name, {'errors': errors})
 
 
+@method_decorator(patient_required, name='dispatch')
 class RatingDeleteView(PermissionRequiredMixin, DeleteView):
     model = Rating
     form_class = RatingForm

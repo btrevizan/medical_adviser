@@ -1,11 +1,14 @@
 from django.views.generic import TemplateView, DetailView, DeleteView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import get_object_or_404, render
-from dash.models import Appointment, Patient
-from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from dash.decorators import patient_required
 from datetime import datetime, timedelta
+from dash.models import Appointment
+from django.urls import reverse_lazy
 
 
+@method_decorator(patient_required, name='dispatch')
 class AppointmentListView(PermissionRequiredMixin, TemplateView):
     model = Appointment
     context_object_name = 'appointments'
@@ -23,6 +26,7 @@ class AppointmentListView(PermissionRequiredMixin, TemplateView):
         return context
 
 
+@method_decorator(patient_required, name='dispatch')
 class AppointmentDetailView(PermissionRequiredMixin, DetailView):
     model = Appointment
     context_object_name = 'appointment'
@@ -30,6 +34,7 @@ class AppointmentDetailView(PermissionRequiredMixin, DetailView):
     permission_required = 'dash.view_appointment'
 
 
+@method_decorator(patient_required, name='dispatch')
 class AppointmentDeleteView(PermissionRequiredMixin, DeleteView):
     model = Appointment
     template_name = 'dash/appointment_delete.html'

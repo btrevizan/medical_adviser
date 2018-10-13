@@ -1,5 +1,4 @@
 from .signup import *
 from .log import *
 from .main import *
-from .rating import *
-from .appointment import *
+from dash.views import patient
