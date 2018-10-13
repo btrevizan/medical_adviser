@@ -1,0 +1,48 @@
+{% load extras %}
+
+<div class="row">
+    <div class="col-md-12">
+        {% if ratings|length == 0 %}
+            <div class="alert">Você não possui avaliações no momento.</div>
+        {% else %}
+            {% for rating in ratings %}
+                <div class="col-md-6 pull-left">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <small>
+                                Dr(a). {{ rating.appointment.doctor.user.first_name }} {{ rating.appointment.doctor.user.last_name }},
+                                {{ rating.appointment.doctor.speciality }}<br>
+                                {{ rating.appointment.datetime }}
+                            </small>
+                            <small class="pull-right">
+                                <a href="{% url 'rating-update' pk=rating.id %}" title="Editar">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                &ensp;
+                                <a href="{% url 'rating-delete' pk=rating.id %}" title="Remover">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                &ensp;
+                                {% if rating.status == rating.WAITING %}
+                                <label class="label label-warning">Aguardando aprovação</label>
+                                {% elif rating.status == rating.APPROVED %}
+                                <label class="label label-success">Aprovada</label>
+                                {% elif rating.status == rating.NOT_APPROVED %}
+                                <label class="label label-danger">Negada</label>
+                                {% endif %}
+                            </small>
+                        </div>
+                        <div class="panel-body">
+                            {% with stars=rating.stars %}
+                                {% include 'dash/parts/rating_stars.html' %}
+                            {% endwith %}
+                            <br>
+                            {{ rating.description }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+

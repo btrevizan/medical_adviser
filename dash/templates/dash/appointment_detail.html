@@ -1,0 +1,67 @@
+{% extends "dash/base.html" %}
+{% load extras %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Consulta #{{ appointment.id }}</h3>
+                </div>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td class="col-md-2 text-right"><strong>Nome</strong></td>
+                            <td>Dr(a). {{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2 text-right"><strong>Especialidade</strong></td>
+                            <td>{{ appointment.doctor.speciality }}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2 text-right"><strong>Avaliações</strong></td>
+                            <td>
+                                {% with stars=appointment.doctor.avg_rating %}
+                                    {% include 'dash/parts/rating_stars.html' %}
+                                {% endwith %}
+                                &ensp;
+                                ({{ appointment.doctor.avg_rating }})
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2 text-right"><strong>Endereço</strong></td>
+                            <td>{{ appointment.doctor.address }}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2 text-right"><strong>Data/Hora</strong></td>
+                            <td>{{ appointment.datetime }}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2 text-right"><strong>Sua Avaliação</strong></td>
+                            {% if appointment.rating %}
+                                <td>
+                                    {% with stars=appointment.rating.stars %}
+                                        {% include 'dash/parts/rating_stars.html' %}
+                                    {% endwith %}
+                                    <br>
+                                    {{ appointment.rating.description }}
+                                </td>
+                            {% else %}
+                                <td>
+                                    <a href="{% url 'rating-create' pk=appointment.id %}">Avaliar</a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                </table>
+                {% if not appointment.datetime|is_closed %}
+                <div class="panel-body">
+                    <a href="{% url 'appointment-delete' pk=appointment.id %}" class="btn btn-danger">Cancelar consulta</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}

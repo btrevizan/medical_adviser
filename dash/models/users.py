@@ -1,3 +1,4 @@
+import numpy as np
 from django.db import models
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
@@ -37,6 +38,17 @@ class Doctor(models.Model):
     avg_rating = models.FloatField(default=0)
 
     def get_free_schedule(self, startdt, enddt):
+        """Get datetime not used in appointments.
+
+        :param startdt: datetime
+            Start interval's datetime.
+
+        :param enddt: datetime
+            End interval's datetime.
+
+        :return: list
+            A list of datetime objects.
+        """
         appointments = self.appointment_set.filter(datetime__range=(startdt, enddt))
         dayschedules = self.dayschedule_set.all()
 
@@ -85,7 +97,32 @@ class Doctor(models.Model):
         return datetimes
 
     def has_free_schedule(self, startdt, enddt):
+        """Check whether the doctor has a free datetime in his schedule in some interval.
+
+        :param startdt: datetime
+            Start interval's datetime.
+
+        :param enddt: datetime
+            End interval's datetime.
+
+        :return: bool
+            Whether the doctor has some datetime not used in appointments.
+        """
         return len(self.get_free_schedule(startdt, enddt))
+
+    def update_avg_rating(self, commit=True):
+        """Update doctor's average rating.
+
+        :param startdt: bool (default True)
+            Whether to save the object in database.
+        """
+        ratings = [a.rating.stars for a in self.appointment_set.filter(rating__isnull=False)]
+        avg_rating = np.mean(ratings)
+
+        self.avg_rating = avg_rating
+
+        if commit:
+            self.save()
 
 
 class Patient(models.Model):

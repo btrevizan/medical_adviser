@@ -27,7 +27,7 @@ To start the server, run:
 $ python3 manage.py runserver
 ```
 You will see something like this
-```bash
+```
 Performing system checks...
 
 System check identified no issues (0 silenced).
@@ -52,19 +52,24 @@ Do Usuário (responsável - [@btrevizan](http://github.com/btrevizan)):
 
 Do Paciente (responsável - [@btrevizan](http://github.com/btrevizan)):
 - [x] Agendar consulta
-- [ ] Realizar avaliação
-- [ ] Listar avaliações próprias
-    - [ ] Visualizar avaliação 
-    - [ ] Editar avaliação
+- [x] Realizar avaliação
+- [x] Listar avaliações próprias
+    - [x] Visualizar avaliação 
+    - [x] Editar avaliação
 
 Do Médico (responsável - [@jpgmoreira](http://github.com/jpgmoreira)):
 - [ ] Listar avaliações
     - [ ] Visualizar avaliações
 - [ ] Gerenciar Agenda
 
-Do Médico E Paciente (responsável - [@alvarosps](http://github.com/alvarosps)):
+Do Médico (e Paciente) (responsável - [@alvarosps](http://github.com/alvarosps)):
 - [ ] Listar Consultas
     - [ ] Visualizar consulta
+    - [ ] Cancelar consulta
+    
+Do Paciente (e Médico) (responsável - [@btrevizan](http://github.com/btrevizan)):
+- [x] Listar Consultas
+    - [x] Visualizar consulta
     - [ ] Cancelar consulta
 
 Do Administrador (responsável - [@Arturgh0](http://github.com/Arturgh0)):
