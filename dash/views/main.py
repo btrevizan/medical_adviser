@@ -1,7 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import RedirectView
+from django.views.generic import TemplateView
 
 
-class DashRedirectView(LoginRequiredMixin, RedirectView):
-    query_string = True
-    pattern_name = 'appointment-list'
+class DashView(LoginRequiredMixin, TemplateView):
+    template_name = 'dash/main.html'
