@@ -12,11 +12,15 @@ class AppointmentForm(forms.Form):
         cleaned_data = super().clean()
         doctor_id = cleaned_data.get('doctor')
 
+        if 'datetime' not in cleaned_data:
+            self.add_error('datetime', 'Este campo é obrigatório')
+
         if not Doctor.objects.filter(pk=doctor_id).exists():
             self.add_error('doctor', 'Médico não existe.')
 
-        if cleaned_data['payment_method'] != Appointment.CREDIT_CARD \
-                and cleaned_data['payment_method'] != Appointment.HEALTH_INSURANCE:
+        if 'payment_method' not in cleaned_data \
+            or (cleaned_data['payment_method'] != Appointment.CREDIT_CARD
+                and cleaned_data['payment_method'] != Appointment.HEALTH_INSURANCE):
             self.add_error('payment_method', 'Método de pagamento inválido.')
 
 

@@ -29,8 +29,18 @@ class AppointmentCreateView(generic.CreateView):
                 appointment.save()
                 return HttpResponseRedirect('success')
 
-        return render(request, self.template_name, {'form': form})
+        return render(request, self.template_name, {'doctor_id': form.cleaned_data['doctor']})
 
 
 class AppointmentCreateSuccessView(generic.TemplateView):
     template_name = 'website/create_appointment_success.html'
+
+    def get_context_data(self, **kwargs):
+        user = self.request.user
+        patient = Patient.objects.get(user=user)
+        appointment = patient.appointment_set.order_by('-id')[0]
+
+        context = super().get_context_data(**kwargs)
+        context['doctor_id'] = appointment.doctor_id
+
+        return context
