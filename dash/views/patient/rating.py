@@ -37,14 +37,14 @@ class RatingCreateView(PermissionRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['star_choices'] = Rating.STARS_CHOICES
         context['appointment'] = get_object_or_404(Appointment, pk=kwargs['pk'])
+        context['form'] = kwargs['form'] if 'form' in kwargs else self.form_class
         return context
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
+        appointment = get_object_or_404(Appointment, pk=kwargs['pk'])
 
         if form.is_valid():
-            appointment = get_object_or_404(Appointment, pk=kwargs['pk'])
-
             rating = Rating()
             rating.appointment = appointment
             rating.description = form.cleaned_data['description']
@@ -55,7 +55,7 @@ class RatingCreateView(PermissionRequiredMixin, TemplateView):
 
             return HttpResponseRedirect(self.success_url)
 
-        return render(request, self.template_name, {'form': form})
+        return self.get(request, pk=appointment.id, form=form)
 
 
 @method_decorator(patient_required, name='dispatch')
