@@ -1,0 +1,29 @@
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <ul class="sidebar-menu">
+            {% if user.patient %}
+                {# Menu itens for patients #}
+                <li>
+                    <a href="{% url 'appointment-list' %}">
+                        <i class="fa fa-list"></i> <span>Consultas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'rating-list' %}">
+                        <i class="fa fa-star"></i> <span>Avaliações</span>
+                    </a>
+                </li>
+            {% elif user.doctor %}
+                {# Menu itens for doctors #}
+            {% elif user.admin %}
+                {# Menu itens for admins #}
+            {% endif %}
+            <li class="header"></li>
+            <li>
+                <a href="{% url 'logout' %}">
+                    <i class="fa fa-sign-out"></i> <span>Sair</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+</aside>
