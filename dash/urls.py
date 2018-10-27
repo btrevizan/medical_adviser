@@ -16,6 +16,9 @@ urlpatterns = [
     path('patient/appointments', views.patient.AppointmentListView.as_view(), name='appointment-list'),
     path('patient/appointments/rate/<int:pk>', views.patient.RatingCreateView.as_view(), name='rating-create'),
     path('patient/appointments/detail/<int:pk>', views.patient.AppointmentDetailView.as_view(), name='appointment-detail'),
-    path('patient/appointments/delete/<int:pk>', views.patient.AppointmentDeleteView.as_view(), name='appointment-delete')
+    path('patient/appointments/delete/<int:pk>', views.patient.AppointmentDeleteView.as_view(), name='appointment-delete'),
+
+    path('admin/ratings', views.admin.RatingListView.as_view(), name='rating-list-admin'),
+    path('admin/ratings/<int:pk>/<str:status>', views.admin.RatingUpdateView.as_view(), name='rating-update-admin'),
 ]
 

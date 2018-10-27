@@ -17,6 +17,16 @@
                 {# Menu itens for doctors #}
             {% elif user.admin %}
                 {# Menu itens for admins #}
+{#                <li>#}
+{#                    <a href="{% url 'admin-list' %}">#}
+{#                        <i class="fa fa-users"></i> <span>Administradores</span>#}
+{#                    </a>#}
+{#                </li>#}
+                <li>
+                    <a href="{% url 'rating-list-admin' %}">
+                        <i class="fa fa-star"></i> <span>Avaliações</span>
+                    </a>
+                </li>
             {% endif %}
             <li class="header"></li>
             <li>

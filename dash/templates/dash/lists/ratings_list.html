@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-md-12">
         {% if ratings|length == 0 %}
-            <div class="alert">Você não possui avaliações no momento.</div>
+            <div class="alert">Não há avaliações no momento.</div>
         {% else %}
             {% for rating in ratings %}
                 <div class="col-md-6 pull-left">
@@ -15,20 +15,30 @@
                                 {{ rating.appointment.datetime }}
                             </small>
                             <small class="pull-right">
-                                <a href="{% url 'rating-update' pk=rating.id %}" title="Editar">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                &ensp;
-                                <a href="{% url 'rating-delete' pk=rating.id %}" title="Remover">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                                &ensp;
-                                {% if rating.status == rating.WAITING %}
-                                <label class="label label-warning">Aguardando aprovação</label>
-                                {% elif rating.status == rating.APPROVED %}
-                                <label class="label label-success">Aprovada</label>
-                                {% elif rating.status == rating.NOT_APPROVED %}
-                                <label class="label label-danger">Negada</label>
+                                {% if is_admin %}
+                                    <a href="{% url 'rating-update-admin' pk=rating.id status=rating.APPROVED %}" title="Aprovar">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                    &ensp;
+                                    <a href="{% url 'rating-update-admin' pk=rating.id status=rating.NOT_APPROVED %}" title="Recusar">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'rating-update' pk=rating.id %}" title="Editar">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    &ensp;
+                                    <a href="{% url 'rating-delete' pk=rating.id %}" title="Remover">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                    &ensp;
+                                    {% if rating.status == rating.WAITING %}
+                                    <label class="label label-warning">Aguardando aprovação</label>
+                                    {% elif rating.status == rating.APPROVED %}
+                                    <label class="label label-success">Aprovada</label>
+                                    {% elif rating.status == rating.NOT_APPROVED %}
+                                    <label class="label label-danger">Negada</label>
+                                    {% endif %}
                                 {% endif %}
                             </small>
                         </div>

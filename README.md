@@ -74,7 +74,7 @@ Do Paciente (e Médico) (responsável - [@btrevizan](http://github.com/btrevizan
 
 Do Administrador (responsável - [@Arturgh0](http://github.com/Arturgh0)):
 - [ ] Cadastrar Administrador
-- [ ] Aprovar avaliação
-- [ ] Reprovar avaliação
+- [x] Aprovar avaliação
+- [x] Reprovar avaliação
 
 *Atualizar os To-Dos conforme desenvolvimento.
