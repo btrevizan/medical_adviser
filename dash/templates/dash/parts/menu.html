@@ -15,6 +15,11 @@
                 </li>
             {% elif user.doctor %}
                 {# Menu itens for doctors #}
+                <li>
+                    <a href="{% url 'rating-list' %}">
+                        <i class="fa fa-list"></i> <span>Listar avaliações</span>
+                    </a>
+                </li>
             {% elif user.admin %}
                 {# Menu itens for admins #}
 {#                <li>#}
