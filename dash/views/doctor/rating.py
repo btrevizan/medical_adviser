@@ -8,13 +8,13 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 from dash.models import Rating
 
-
 @method_decorator(doctor_required, name='dispatch')
 class RatingListView(PermissionRequiredMixin, TemplateView):
     model = Rating
     context_object_name = 'ratings'
     template_name = 'dash/ratings.html'
-    permission_required = 'dash.view_rating'
+
+    permission_required = "dash.view_rating"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
