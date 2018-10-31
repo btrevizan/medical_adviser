@@ -13,17 +13,21 @@ class RatingListView(PermissionRequiredMixin, TemplateView):
     model = Rating
     context_object_name = 'ratings'
     template_name = 'dash/ratings.html'
-
     permission_required = "dash.view_rating"
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        # Modificacoes: Joao Pedro.
 
-        context[self.context_object_name] = self.model.objects\
-            .filter(status=self.model.WAITING)\
-            .order_by('appointment__datetime')
+        #context = super().get_context_data(**kwargs)
+        #context[self.context_object_name] = self.model.objects\
+        #    .filter()\
+        #    .order_by('appointment__datetime')
 
+        doctor = self.request.user.doctor
+        context = {self.context_object_name: self.model.objects
+                                                .filter(appointment__doctor_id=doctor.id)
+                                                .order_by('-appointment__datetime')}
         context['is_doctor'] = True
-
         return context
+
 
