@@ -58,8 +58,8 @@ Do Paciente (responsável - [@btrevizan](http://github.com/btrevizan)):
     - [x] Editar avaliação
 
 Do Médico (responsável - [@jpgmoreira](http://github.com/jpgmoreira)):
-- [ ] Listar avaliações
-    - [ ] Visualizar avaliações
+- [x] Listar avaliações
+    - [x] Visualizar avaliações
 - [ ] Gerenciar Agenda
 
 Do Médico (e Paciente) (responsável - [@alvarosps](http://github.com/alvarosps)):

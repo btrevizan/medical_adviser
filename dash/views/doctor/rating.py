@@ -16,7 +16,7 @@ class RatingListView(PermissionRequiredMixin, TemplateView):
     permission_required = "dash.view_rating"
 
     def get_context_data(self, **kwargs):
-        # Modificacoes: Joao Pedro.
+        # Joao Pedro.
 
         #context = super().get_context_data(**kwargs)
         #context[self.context_object_name] = self.model.objects\
