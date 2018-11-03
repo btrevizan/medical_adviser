@@ -113,7 +113,7 @@ class Doctor(models.Model):
     def update_avg_rating(self, commit=True):
         """Update doctor's average rating.
 
-        :param startdt: bool (default True)
+        :param commit: bool (default True)
             Whether to save the object in database.
         """
         ratings = [a.rating.stars for a in self.appointment_set.filter(rating__isnull=False)]
