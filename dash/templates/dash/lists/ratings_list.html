@@ -23,7 +23,7 @@
                                     <a href="{% url 'rating-update-admin' pk=rating.id status=rating.NOT_APPROVED %}" title="Recusar">
                                         <i class="fa fa-times"></i>
                                     </a>
-                                {% else %}
+                                {% elif not is_doctor %}
                                     <a href="{% url 'rating-update' pk=rating.id %}" title="Editar">
                                         <i class="fa fa-pencil"></i>
                                     </a>
