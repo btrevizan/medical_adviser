@@ -1,0 +1,20 @@
+{% extends "dash/base.html" %}
+{% load extras %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-xs-12">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Agenda</h3>
+                </div>
+                <div class="box-body">
+                    {% include "dash/lists/doctor_schedule_list.html" %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}
+

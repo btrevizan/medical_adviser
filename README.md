@@ -60,7 +60,7 @@ Do Paciente (responsável - [@btrevizan](http://github.com/btrevizan)):
 Do Médico (responsável - [@jpgmoreira](http://github.com/jpgmoreira)):
 - [x] Listar avaliações
     - [x] Visualizar avaliações
-- [ ] Gerenciar Agenda
+- [x] Gerenciar Agenda
 
 Do Médico (e Paciente) (responsável - [@alvarosps](http://github.com/alvarosps)):
 - [ ] Listar Consultas

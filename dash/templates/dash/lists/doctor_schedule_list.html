@@ -1,0 +1,105 @@
+{% load extras %}
+
+<div class="modal fade" id="modal_add_horario">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Adicionar horário</h4>
+      </div>
+      <div class="modal-body">
+        <table>
+            <tr>
+                <td>Selecione um dia da semana:</td>
+            </tr>
+            <tr>
+                <td>
+                    <select name="day_select" form="add_schedule_form">
+                        {% for k, v in all_days.items %}
+                            <option value="{{ k }}">{{ v }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><br>Selecione o horário de início:</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="time" name="start_time" form="add_schedule_form">
+                </td>
+            </tr>
+            <tr>
+            <td><br>Selecione o horário de término:</td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="time" name="end_time" form="add_schedule_form">
+                </td>
+            </tr>
+
+        </table>
+      </div>
+      <div class="modal-footer">
+        <form action="{% url 'doctor-add-schedule' %}" id="add_schedule_form" method="get">
+           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+           <input type="submit" class="btn btn-primary" value="Salvar">
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+{% if days_times|length == 0 %}
+    <div class="alert">Não há agenda para exibir.</div>
+{% else %}
+    <div class="row">
+    {% for dt in days_times %}
+        <div class="col-lg-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><b>
+                        {% if dt.day.day == 0 %}
+                            <div> Segunda-feira </div>
+                        {% elif dt.day.day == 1 %}
+                            <div> Terça-feira </div>
+                        {% elif dt.day.day == 2 %}
+                            <div> Quarta-feira </div>
+                        {% elif dt.day.day == 3 %}
+                            <div> Quinta-feira </div>
+                        {% elif dt.day.day == 4 %}
+                            <div> Sexta-feira </div>
+                        {% elif dt.day.day == 5 %}
+                            <div> Sábado </div>
+                        {% elif dt.day.day == 6 %}
+                            <div> Domingo </div>
+                        {% endif %}
+                    </b></h3>
+                </div>
+                <!-- Table -->
+                <table class="table">
+                    {% for ts in dt.times %}
+                        <tr style="font-size:16px">
+                            <td>
+                                {{ ts.start_time }}&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;{{ ts.end_time }}
+                            </td>
+                            <td>
+                                <a href="{% url 'doctor-delete-schedule' ds_id=dt.day.id ts_id=ts.id %}" title="Remover">
+                                    <span class="fa fa-trash"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endif %}
+<div class ="row">
+    <div class="col-lg-12">
+        <a href="#" title="Adicionar horário" data-toggle="modal" data-target="#modal_add_horario">
+            <span class="fa fa-plus"></span>&nbsp;&nbsp;Adicionar horário.
+        </a>            
+    </div>
+</div>
