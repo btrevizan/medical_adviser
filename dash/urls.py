@@ -20,6 +20,7 @@ urlpatterns = [
 
     path('admin/ratings', views.admin.RatingListView.as_view(), name='rating-list-admin'),
     path('admin/ratings/<int:pk>/<str:status>', views.admin.RatingUpdateView.as_view(), name='rating-update-admin'),
+    path('admin/register', views.admin.RegisterAdminView.as_view(), name='register-admin'),
 
     path('doctor/ratings', views.doctor.RatingListView.as_view(), name='rating-list-doctor'),
 ]

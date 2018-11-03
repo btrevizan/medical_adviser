@@ -73,7 +73,7 @@ Do Paciente (e Médico) (responsável - [@btrevizan](http://github.com/btrevizan
     - [x] Cancelar consulta
 
 Do Administrador (responsável - [@Arturgh0](http://github.com/Arturgh0)):
-- [ ] Cadastrar Administrador
+- [x] Cadastrar administrador
 - [x] Aprovar avaliação
 - [x] Reprovar avaliação
 
