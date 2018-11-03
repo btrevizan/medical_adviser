@@ -38,6 +38,7 @@ class Schedule:
         self.day = day
         self.times = []
 
+
 @method_decorator(doctor_required, name='dispatch')
 class DoctorSchedule(PermissionRequiredMixin, TemplateView):
     model = DaySchedule
@@ -63,6 +64,19 @@ class DoctorSchedule(PermissionRequiredMixin, TemplateView):
         return context
 
 
+@method_decorator(doctor_required, name='dispatch')
+class DoctorCreateSchedule(PermissionRequiredMixin, TemplateView):
+    model = DaySchedule
+    context_object_name = 'days_times'
+    template_name = 'dash/doctor_create_schedule.html'
+    permission_required = "dash.view_rating"
+
+    def get_context_data(self, **kwargs):
+        context = {}
+        context['is_doctor'] = True
+        context['all_days'] = {0: 'Segunda-feira', 1: 'Terça-feira', 2: 'Quarta-feira', 3: 'Quinta-feira', 4: 'Sexta-feira', 5: 'Sábado', 6: 'Domingo'}
+        return context
+
 
 @method_decorator(doctor_required, name='dispatch')
 class DoctorScheduleAdd(PermissionRequiredMixin, TemplateView):
@@ -71,13 +85,13 @@ class DoctorScheduleAdd(PermissionRequiredMixin, TemplateView):
     template_name = 'dash/doctor_schedule.html'
     permission_required = "dash.view_rating"
 
-    def get_context_data(self, **kwargs):
+    def post(self, request, *args, **kwargs):
         # Joao Pedro.
         days_times = []
 
-        day_add = self.request.GET['day_select']
-        start_time = self.request.GET['start_time']
-        end_time = self.request.GET['end_time']
+        day_add = self.request.POST['day_select']
+        start_time = self.request.POST['start_time']
+        end_time = self.request.POST['end_time']
 
         invalid = False
         if start_time == '' or end_time == '':
@@ -129,7 +143,7 @@ class DoctorScheduleAdd(PermissionRequiredMixin, TemplateView):
         context = {self.context_object_name: days_times}
         context['is_doctor'] = True
         context['all_days'] = {0: 'Segunda-feira', 1: 'Terça-feira', 2: 'Quarta-feira', 3: 'Quinta-feira', 4: 'Sexta-feira', 5: 'Sábado', 6: 'Domingo'}
-        return context
+        return HttpResponseRedirect("../schedule")
 
 
 @method_decorator(doctor_required, name='dispatch')

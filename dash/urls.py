@@ -26,6 +26,7 @@ urlpatterns = [
 
     path('doctor/schedule', views.doctor.DoctorSchedule.as_view(), name='doctor-schedule'),
     path('doctor/schedule/add', views.doctor.DoctorScheduleAdd.as_view(), name='doctor-add-schedule'),
+    path('doctor/schedule/create', views.doctor.DoctorCreateSchedule.as_view(), name='doctor-create-schedule'),    
     path('doctor/schedule/delete/<int:ds_id>/<int:ts_id>', views.doctor.DoctorScheduleDelete.as_view(), name='doctor-delete-schedule'),
 ]
 
