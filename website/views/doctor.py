@@ -15,7 +15,13 @@ class DoctorProfileView(generic.DetailView):
             'datetime')[:10]
 
         startdt = datetime.datetime.today()
-        enddt = datetime.datetime(startdt.year, startdt.month + 2, startdt.day, startdt.hour, startdt.minute, 0, 0)
+        start_month = (startdt.month + 2) % 12 + 1
+        start_year = startdt.year
+
+        if start_month < startdt.month:
+            start_year += 1
+
+        enddt = datetime.datetime(start_year, start_month, startdt.day, startdt.hour, startdt.minute, 0, 0)
         context['free_schedule'] = context['object'].get_free_schedule(startdt, enddt)
 
         return context
