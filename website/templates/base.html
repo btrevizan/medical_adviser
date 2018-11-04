@@ -37,8 +37,15 @@
                     <img src="{% static "website/img/logo.png" %}">
                 </a>
                 {% if user.is_authenticated %}
-                    Olá, {{ user.first_name }}
-                    <a class="btn btn-success" href="{% url 'dash-redirect' %}">Minha Conta</a>
+                    {% if user.patient %}
+                        Olá, {{ user.first_name }}
+                    {% elif user.doctor %}
+                        Olá, Dr(a). {{ user.first_name }}
+                    {% endif %}
+                    <span style="display: flex; justify-content: flex-end;">
+                    <a class="btn btn-success" style="margin-right: 5px;" href="{% url 'dash-redirect' %}">Minha Conta</a>
+                    <a class="btn btn-secondary" href="{% url 'logout' %}">Sair</a>
+                    </span>
                 {% else %}
                     <a class="btn btn-success" href="{% url 'login' %}">Entrar</a>
                 {% endif %}
