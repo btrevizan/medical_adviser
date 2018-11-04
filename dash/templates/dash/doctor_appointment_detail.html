@@ -1,0 +1,38 @@
+{% extends "dash/base.html" %}
+{% load extras %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Consulta #{{ appointment.id }}</h3>
+                </div>
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td class="col-md-2 text-right"><strong>Nome</strong></td>
+                            <td>Sr(a). {{ appointment.patient.user.first_name }} {{ appointment.patient.user.last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2 text-right"><strong>Endereço do Consultório</strong></td>
+                            <td>{{ appointment.doctor.address }}</td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-2 text-right"><strong>Data/Hora</strong></td>
+                            <td>{{ appointment.datetime }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {% if not appointment.datetime|is_closed %}
+                <div class="panel-body">
+                    <a href="{% url 'doctor-appointment-delete' pk=appointment.id %}" class="btn btn-danger">Cancelar consulta</a>
+                    <a class="btn btn-info" onclick="window.history.back();">Voltar</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}

@@ -63,9 +63,9 @@ Do Médico (responsável - [@jpgmoreira](http://github.com/jpgmoreira)):
 - [x] Gerenciar Agenda
 
 Do Médico (e Paciente) (responsável - [@alvarosps](http://github.com/alvarosps)):
-- [ ] Listar Consultas
-    - [ ] Visualizar consulta
-    - [ ] Cancelar consulta
+- [x] Listar Consultas
+    - [x] Visualizar consulta
+    - [x] Cancelar consulta
     
 Do Paciente (e Médico) (responsável - [@btrevizan](http://github.com/btrevizan)):
 - [x] Listar Consultas

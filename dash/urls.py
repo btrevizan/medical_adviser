@@ -24,6 +24,10 @@ urlpatterns = [
 
     path('doctor/ratings', views.doctor.RatingListView.as_view(), name='rating-list-doctor'),
 
+    path('doctor/appointments', views.doctor.DoctorAppointmentListView.as_view(), name='doctor-appointment-list'),
+    path('doctor/appointments/detail/<int:pk>', views.doctor.DoctorAppointmentDetailView.as_view(), name='doctor-appointment-detail'),
+    path('doctor/appointments/delete/<int:pk>', views.doctor.DoctorAppointmentDeleteView.as_view(), name='doctor-appointment-delete'),
+
     path('doctor/schedule', views.doctor.DoctorSchedule.as_view(), name='doctor-schedule'),
     path('doctor/schedule/create', views.doctor.DoctorCreateSchedule.as_view(), name='doctor-create-schedule'),    
     path('doctor/schedule/delete/<int:ds_id>/<int:ts_id>', views.doctor.DoctorScheduleDelete.as_view(), name='doctor-delete-schedule'),

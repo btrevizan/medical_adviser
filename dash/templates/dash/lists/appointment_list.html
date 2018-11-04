@@ -7,25 +7,41 @@
                 <div class="col-md-6 pull-left">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            {{ appointment.doctor.speciality }}
-                            <br>
-                            Dr(a). {{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }}
-                            <br>
-                            {{ appointment.datetime }}
-                            <br>
-                            <a href="{% url 'appointment-detail' pk=appointment.id %}" title="Detalhes">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                            {% if closed and not appointment.rating %}
-                                &ensp;
-                                <a href="{% url 'rating-create' pk=appointment.id %}" title="Avaliar">
-                                    <i class="fa fa-star"></i>
+                            {% if user.patient %}
+                                {{ appointment.doctor.speciality }}
+                                <br>
+                                Dr(a). {{ appointment.doctor.user.first_name }} {{ appointment.doctor.user.last_name }}
+                                <br>
+                                {{ appointment.datetime }}
+                                <br>
+                                <a href="{% url 'appointment-detail' pk=appointment.id %}" title="Detalhes">
+                                    <i class="fa fa-eye"></i>
                                 </a>
-                            {% elif not closed %}
-                                &ensp;
-                                <a href="{% url 'appointment-delete' pk=appointment.id %}" title="Cancelar">
-                                    <i class="fa fa-ban"></i>
+                                {% if closed and not appointment.rating %}
+                                    &ensp;
+                                    <a href="{% url 'rating-create' pk=appointment.id %}" title="Avaliar">
+                                        <i class="fa fa-star"></i>
+                                    </a>
+                                {% elif not closed %}
+                                    &ensp;
+                                    <a href="{% url 'appointment-delete' pk=appointment.id %}" title="Cancelar">
+                                        <i class="fa fa-ban"></i>
+                                    </a>
+                                {% endif %}
+                            {% elif user.doctor %}
+                                Sr(a). {{ appointment.patient.user.first_name }} {{ appointment.patient.user.last_name }}
+                                <br>
+                                {{ appointment.datetime }}
+                                <br>
+                                <a href="{% url 'doctor-appointment-detail' pk=appointment.id %}" title="Detalhes">
+                                    <i class="fa fa-eye"></i>
                                 </a>
+                                {% if not closed %}
+                                    &ensp;
+                                    <a href="{% url 'doctor-appointment-delete' pk=appointment.id %}" title="Cancelar">
+                                        <i class="fa fa-ban"></i>
+                                    </a>
+                                {% endif %}
                             {% endif %}
                         </div>
                     </div>

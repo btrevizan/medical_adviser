@@ -10,9 +10,15 @@
                 </div>
                 <div class="box-body">
                     {% if can_cancel %}
-                        {% with  action='appointment-delete' object=appointment redirect='appointment-list' %}
-                            {% include "dash/parts/delete_confirmation.html" %}
-                        {% endwith %}
+                        {% if user.patient %}
+                            {% with  action='appointment-delete' object=appointment redirect='appointment-list' %}
+                                {% include "dash/parts/delete_confirmation.html" %}
+                            {% endwith %}
+                        {% elif user.doctor %}
+                            {% with  action='doctor-appointment-delete' object=appointment redirect='doctor-appointment-list' %}
+                                {% include "dash/parts/delete_confirmation.html" %}
+                            {% endwith %}
+                        {% endif %}
                     {% else %}
                         <div class="row">
                             <div class="col-xs-12">

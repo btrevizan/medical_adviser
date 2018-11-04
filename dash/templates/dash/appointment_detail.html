@@ -60,6 +60,7 @@
                 {% if not appointment.datetime|is_closed %}
                 <div class="panel-body">
                     <a href="{% url 'appointment-delete' pk=appointment.id %}" class="btn btn-danger">Cancelar consulta</a>
+                    <a class="btn btn-info" onclick="window.history.back();">Voltar</a>
                 </div>
                 {% endif %}
             </div>
