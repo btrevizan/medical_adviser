@@ -8,6 +8,9 @@
             <div class="box box-warning">
                 <div class="box-header with-border">
                     <h3 class="box-title">Agenda</h3>
+                    <a href="{% url 'doctor-create-schedule' %}" title="Adicionar horário" class="btn btn-info btn-xs pull-right">
+                        <i class="fa fa-plus"></i>
+                    </a>
                 </div>
                 <div class="box-body">
                     {% include "dash/lists/doctor_schedule_list.html" %}

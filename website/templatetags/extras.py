@@ -14,3 +14,8 @@ def us_date(value):
 @register.filter
 def is_closed(value):
     return value < datetime.today()
+
+@register.filter
+def weekday(value):
+    wkd = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo']
+    return wkd[value]

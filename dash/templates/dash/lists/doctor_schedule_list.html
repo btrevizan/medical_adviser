@@ -1,42 +1,29 @@
 {% load extras %}
 
 {% if days_times|length == 0 %}
-    <div class="alert">Não há agenda para exibir.</div>
+    <div class="alert alert-info">Não há agenda para exibir.</div>
 {% else %}
     <div class="row">
     {% for dt in days_times %}
         <div class="col-lg-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><b>
-                        {% if dt.day.day == 0 %}
-                            <div> Segunda-feira </div>
-                        {% elif dt.day.day == 1 %}
-                            <div> Terça-feira </div>
-                        {% elif dt.day.day == 2 %}
-                            <div> Quarta-feira </div>
-                        {% elif dt.day.day == 3 %}
-                            <div> Quinta-feira </div>
-                        {% elif dt.day.day == 4 %}
-                            <div> Sexta-feira </div>
-                        {% elif dt.day.day == 5 %}
-                            <div> Sábado </div>
-                        {% elif dt.day.day == 6 %}
-                            <div> Domingo </div>
-                        {% endif %}
-                    </b></h3>
+                    <h3 class="panel-title">
+                        <strong>{{ dt.day.day|weekday }}</strong>
+                    </h3>
                 </div>
-                <!-- Table -->
                 <table class="table">
                     {% for ts in dt.times %}
-                        <tr style="font-size:16px">
+                        <tr>
                             <td>
                                 {{ ts.start_time }}&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;{{ ts.end_time }}
                             </td>
                             <td>
-                                <a href="{% url 'doctor-delete-schedule' ds_id=dt.day.id ts_id=ts.id %}" title="Remover">
-                                    <span class="fa fa-trash"></span>
-                                </a>
+                                <small>
+                                    <a href="{% url 'doctor-delete-schedule' ds_id=dt.day.id ts_id=ts.id %}" title="Remover">
+                                        <span class="fa fa-trash"></span>
+                                    </a>
+                                </small>
                             </td>
                         </tr>
                     {% endfor %}
@@ -46,10 +33,3 @@
     {% endfor %}
     </div>
 {% endif %}
-<div class ="row">
-    <div class="col-lg-12">
-        <a href="{% url 'doctor-create-schedule' %}" title="Adicionar horário">
-            <span class="fa fa-plus"></span>&nbsp;&nbsp;Adicionar horário.
-        </a>            
-    </div>
-</div>

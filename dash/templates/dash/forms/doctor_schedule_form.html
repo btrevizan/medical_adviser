@@ -1,47 +1,24 @@
+{% load extras %}
+
 <div class="row">
-    <div class="col-xs-12">
-        {% for error in errors %}
-            <div class="alert alert-danger">{{ error }}</div>
-        {% endfor %}
-        <form method="post" action="{% url 'doctor-add-schedule' %}" style="display: inline" >
-            {% csrf_token %}
-
-        <table>
-            <tr>
-                <td>Selecione um dia da semana:</td>
-            </tr>
-            <tr>
-                <td>
-                    <select name="day_select">
-                        {% for k, v in all_days.items %}
-                            <option value="{{ k }}">{{ v }}</option>
-                        {% endfor %}
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td><br>Selecione o horário de início:</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="time" name="start_time">
-                </td>
-            </tr>
-            <tr>
-            <td><br>Selecione o horário de término:</td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="time" name="end_time">
-                </td>
-            </tr>
-
-        </table>
-                <button type="submit" class="btn btn-success" style="max-width:300px; margin-top:50px; margin-right:30px">Salvar</button>
-        </form>
-
-<form style="display: inline" action="{% url 'doctor-schedule' %}">
-                   <button type="submit" class="btn btn-danger" style="max-width:300px; margin-top:50px">Cancelar</button>
- </form>
-    </div>    
+    <form method="post" action="{% url 'doctor-create-schedule' %}">
+        {% csrf_token %}
+        <div class="form-group col-md-12">
+            <select name="day_select" class="form-control" required>
+                <option selected>Dia da semana...</option>
+                {% for k in all_days %}
+                    <option value="{{ k }}">{{ k|weekday }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+             <input type="text" name="start_time" placeholder="Início (hh:mm)" class="form-control" required>
+        </div>
+        <div class="form-group col-md-6">
+             <input type="text" name="end_time" placeholder="Término (hh:mm)" class="form-control" required>
+        </div>
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-success btn-block">Salvar</button>
+        </div>
+    </form>
 </div>
