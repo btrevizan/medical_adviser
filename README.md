@@ -1,6 +1,9 @@
 # Medical Advisor
 Like a trip advisor for doctors and patients.
 
+## Running on server
+Access [104.248.221.18](http://104.248.221.18).
+
 ## Running on localhost
 
 ### First steps
